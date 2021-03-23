@@ -1,0 +1,7 @@
+{
+    "name": "theme/boilerplate",
+    "description": "Helper packages for boilerplate",
+    "require": {
+        "mobiledetect/mobiledetectlib": "^2.8"
+    }
+}
