@@ -12,8 +12,5 @@ a {
 }
 
 .btn {
-    text-decoration: none;
-    text-transform: uppercase;
-
     @apply tracking-widest text-xxs py-3 px-5 bg-indigo-500 rounded text-white font-semibold transition hover:bg-indigo-600;
 }
