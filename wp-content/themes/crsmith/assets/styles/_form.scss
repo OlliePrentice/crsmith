@@ -31,10 +31,9 @@
 
     .gfield {
         position: relative;
-        flex: 0 0 100%;
+        flex: 0 0 auto;
         max-width: 100%;
         margin-bottom: 1rem;
-
 
         @apply px-3;
 
@@ -48,6 +47,15 @@
             max-width: 50%;
         }
 
+        &.field-large {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        &.field-fill {
+            flex: 1 0;
+        }
+
         &.hidden_label {
             .gfield_label {
                 display: none;
@@ -56,7 +64,30 @@
     }
 
     .gfield_label {
-        font-weight: 600;
+        @apply inline-block mb-2 text-sm text-primary font-normal;
+    }
+
+    .file-uploader {
+        @apply mb-8;
+
+        .gfield_label {
+            @apply text-base font-bold mb-0;
+        }
+
+        input {
+            position: absolute;
+            top: 0;
+            left: -9999px;
+        }
+
+    }
+
+    .gform_drop_instructions {
+        display: none;
+    }
+
+    .gfield_description {
+        @apply text-sm text-primary;
     }
 
 
@@ -101,34 +132,40 @@
 }
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    @apply text-black;
+    @apply text-primary text-opacity-30;
     opacity: 1;
 }
 input::-moz-placeholder, textarea::-moz-placeholder { /* Firefox 19+ */
-    @apply text-black;
+    @apply text-primary text-opacity-30;
     opacity: 1;
 }
 input:-ms-input-placeholder, textarea:-ms-input-placeholder { /* IE 10+ */
-    @apply text-black;
+    @apply text-primary text-opacity-30;
     opacity: 1;
 }
 input:-moz-placeholder, textarea:-moz-placeholder { /* Firefox 18- */
-    @apply text-black;
+    @apply text-primary text-opacity-30;
     opacity: 1;
 }
 
 input {
     width: 100%;
-    height: 50px;
-    padding: 0 22px;
-    border-radius: 0;
+    height: 52px;
+    padding: 0 20px;
     box-sizing: border-box;
     outline: 0 !important;
     box-shadow: none !important;
     appearance: none;
+    background: none;
 
-    @apply bg-black bg-opacity-10 text-sm;
+    @apply text-lg text-primary border border-gray-400 rounded-xl;
 
+    &.input-small {
+        height: 34px;
+        padding: 0 15px;
+
+        @apply text-sm;
+    }
 }
 
 textarea {
@@ -140,8 +177,9 @@ textarea {
     box-sizing: border-box;
     outline: 0 !important;
     appearance: none;
+    background: none;
 
-    @apply bg-black bg-opacity-10 text-sm;
+    @apply text-lg text-primary border border-gray-400 rounded-xl;
 
 }
 
@@ -250,19 +288,74 @@ input[type="checkbox"] {
 
 select {
     width: 100%;
-    height: 50px;
+    height: 52px;
     padding: 0 45px 0 22px;
     margin: 0;
     text-overflow: "";
     border-radius: 4px;
     outline: 0 !important;
     appearance: none;
+    background-color: transparent;
     background-image: url(../images/select-arrow.svg);
     background-position: calc(100% - 20px) center;
     background-repeat: no-repeat;
+
+    @apply text-lg border border-gray-400 rounded-xl;
 }
 
 
 select::-ms-expand {
     display: none;
+}
+
+
+.drop-select {
+    .dk-selected {
+        padding-left: 0;
+        background: none;
+        border: none;
+        border-bottom: 1px solid;
+        border-radius: 0;
+        border-color: $gray-200!important;
+        
+        @apply py-1 text-primary font-semibold;
+
+        &:before {
+            width: 16px;
+            height: 9px;
+            border: none;
+            margin: -4px 5px 0 0;
+            background-image: url(../images/select-arrow.svg);
+            background-position: center;
+            background-repeat: no-repeat;;
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+
+    ul.dk-select-options {
+        margin: 10px 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: 0 0 10px rgba(black, 0.2);
+
+        @apply py-2;
+
+        li {
+            margin: 0;
+
+            @apply py-2 px-7 text-primary font-semibold;
+        }
+
+
+        .dk-option-selected {
+            @apply bg-white text-primary;
+        }
+
+        .dk-option-highlight {
+            @apply bg-primary text-white;
+        }
+    }
 }

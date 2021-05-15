@@ -7,7 +7,7 @@ if ( !empty( $block['anchor'] ) ) {
 
 $classes = !empty( $block['classes'] ) ? [$block['classes']] : [];
 $classes[] = !empty( $block['default_classes'] ) ? $block['default_classes'] : '';
-$classes[] = padding_classes();
+$classes[] = !empty( $block['backgroundColor'] ) ? 'bg-' . $block['backgroundColor'] : '';
 
 ?>
 

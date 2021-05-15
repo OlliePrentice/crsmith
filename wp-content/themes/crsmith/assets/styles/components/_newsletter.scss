@@ -1,0 +1,30 @@
+.newsletter {
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        
+        @apply -mx-2;
+
+        > * {
+            @apply px-2;
+        }
+
+        input {
+            @apply text-xl;
+        }
+
+        .gform_body {
+            flex: 1 0;
+        }
+
+        .gform_footer {
+            flex: 0 0 auto;
+        }
+
+        .validation_error, .validation_message {
+            display: none;
+        }
+    }
+
+}

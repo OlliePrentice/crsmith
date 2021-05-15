@@ -6,7 +6,7 @@ mix.disableSuccessNotifications();
 mix.setPublicPath('public');
 mix.setResourceRoot('../');
 mix.sourceMaps(false, 'source-map');
-mix.browserSync('localhost:8000');
+// mix.browserSync('localhost:8000');
 
 writeTailwindToSass();
 
@@ -20,3 +20,4 @@ mix.sass('./assets/styles/style.scss', 'styles/style.css')
 }).sass('./assets/styles/tailwind.scss', 'styles/tailwind.css');
 
 mix.js('./assets/scripts/index.js', 'scripts/app.js');
+mix.js('./assets/scripts/admin/gutenberg.js', 'scripts/gutenberg.js').react();

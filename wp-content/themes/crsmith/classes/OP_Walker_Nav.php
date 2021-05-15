@@ -61,7 +61,13 @@ class OP_Walker_Nav extends Walker {
         $class_names = join( ' ', apply_filters( 'nav_menu_submenu_css_class', $classes, $args, $depth ) );
         $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
-        $output .= "{$n}{$indent}<ul$class_names>{$n}";
+        if ( $depth === 0 ) {
+            $output .= "{$n}{$indent}<div class='mega-wrap'><div class='mega-inner'><ul$class_names>{$n}";
+        } else {
+            $output .= "{$n}{$indent}<ul$class_names>{$n}";
+        }
+
+    
     }
 
     /**
@@ -84,7 +90,13 @@ class OP_Walker_Nav extends Walker {
             $n = "\n";
         }
         $indent  = str_repeat( $t, $depth );
-        $output .= "$indent</ul>{$n}";
+
+        if ( $depth === 0 ) {
+            $output .= "$indent</ul></div></div>{$n}";
+        } else {
+            $output .= "$indent</ul>{$n}";
+        }
+
     }
 
     /**
@@ -114,6 +126,43 @@ class OP_Walker_Nav extends Walker {
         $classes   = empty( $item->classes ) ? array() : (array) $item->classes;
         $classes[] = 'menu-item-' . $item->ID;
 
+        $pop_out_nav = get_field( 'pop_out_navigation', $item );
+
+        if ( $pop_out_nav ) {
+            $classes[] = 'pop-out-nav';
+        }
+
+        $root_id = 0;
+        $root_obj = new stdClass();
+
+        $menu_items = wp_get_nav_menu_items('primary');
+
+        foreach ( $menu_items as $menu_item ) {
+            if ( $menu_item->ID === $item->ID ) {
+              // set the root id based on whether the current menu item has a parent or not
+              $root_id = ( $menu_item->menu_item_parent ) ? $menu_item->menu_item_parent : $menu_item->ID;
+              break;
+            }
+          }
+
+        // find the top level parent
+        $prev_root_id = $root_id;
+        while ( $prev_root_id != 0 ) {
+            foreach ( $menu_items as $menu_item ) {
+                if ( $menu_item->ID == $prev_root_id ) {
+                $prev_root_id = $menu_item->menu_item_parent;
+                $root_obj = $menu_item;
+                // don't set the root_id to 0 if we've reached the top of the menu
+                if ( $prev_root_id != 0 ) { 
+                    $root_id = $menu_item->menu_item_parent; 
+                }
+                break;
+                } 
+            }
+        }
+
+        $pop_out_nav_parent = get_field( 'pop_out_navigation', $root_obj );
+
         /**
          * Filters the arguments for a single nav menu item.
          *
@@ -138,6 +187,8 @@ class OP_Walker_Nav extends Walker {
          */
         $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
         $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+        
 
         /**
          * Filters the ID applied to a menu item's list item element.
@@ -216,11 +267,63 @@ class OP_Walker_Nav extends Walker {
          */
         $title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
 
+        if( $depth === 1 && $pop_out_nav_parent ) {
+            $offers     = crs_get_offers( get_field( 'menu_item_offers_id', $item ) );
 
+            if ( $offers ) {
+
+                $offer_content = '';
+
+                ob_start();
+
+                get_template_part( 'template-parts/components/offers-expander', '', ['offers' => $offers] );
+
+                $offer_content .= ob_get_clean();
+
+                $output .= $offer_content;
+            }
+        }
+
+        $featured_pages = get_field( 'menu_feature_pages', $item );
+
+        if( $depth === 0 && $featured_pages ) {
+
+            ob_start();
+
+            get_template_part( 'template-parts/components/menu-feature-pages', '', ['pages' => $featured_pages] );
+
+            $output .= ob_get_clean();
+        }
 
         $item_output  = $args->before;
         $item_output .= '<a' . $attributes . '>';
+
+        if( $depth === 2 && $pop_out_nav_parent ) {
+            $thumbnail = get_the_post_thumbnail($item->object_id, 'menu_item', ['loading' => 'lazy']);
+            if ( $thumbnail ) {
+                $item_output .= '<div class="mb-4 nav-thumb">' . $thumbnail . '</div>';
+            }
+            $item_output .= '<span class="text-3xl block mb-3 nav-title">';
+
+        } else {
+            $item_output .= '<span>';
+        }
+
         $item_output .= $args->link_before . $title . $args->link_after;
+
+        if( $depth === 2 && $pop_out_nav_parent ) {
+            $item_output .= '</span>';
+
+            $excerpt = excerpt(25, $item->object_id);
+
+            if ( $excerpt ) {
+                $item_output .= '<div class="text-lg text-gray-800 nav-excerpt">' . $excerpt . '</div>';
+            }
+        } else {
+            $item_output .= '</span>';
+        }
+
+
         $item_output .= '</a>';
         $item_output .= $args->after;
 

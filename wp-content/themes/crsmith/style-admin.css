@@ -26,3 +26,17 @@ i.mce-i-icon {
     max-height: inherit;
     max-width: inherit;
 }
+
+
+div[data-name="pop_out_navigation"],
+div[data-name="menu_feature_pages"],
+div[data-name="menu_item_offers_id"]
+{
+    display: none;
+}
+
+.menu-item-depth-0 div[data-name="pop_out_navigation"],
+.menu-item-depth-0 div[data-name="menu_feature_pages"],
+.menu-item-depth-1 div[data-name="menu_item_offers_id"] {
+    display: block;
+}

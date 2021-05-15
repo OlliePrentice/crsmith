@@ -1,0 +1,11 @@
+.card-post {
+
+    a {
+        &:hover {
+            h4 {
+                @apply underline text-secondary;
+            }
+        }
+    }
+
+}

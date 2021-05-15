@@ -15,6 +15,15 @@ Thumbnails
  */
 add_theme_support('post-thumbnails');
 add_image_size('full', 3000, 3000, true);
+add_image_size('portrait', 588, 787, true);
+add_image_size('card', 380, 240, true);
+add_image_size('card_wide', 685, 360, true);
+add_image_size('menu_item', 435, 250, true);
+add_image_size('header_carousel', 960, 800, true);
+add_image_size('wide_image', 1500, 780, true);
+add_image_size('wide_double', 750, 550, true);
+add_image_size('trio', 1270, 700, true);
+add_image_size('side_double', 600, 370, true);
 
 /*
 Scripts & Styles
@@ -45,12 +54,20 @@ add_action('admin_enqueue_scripts', function() {
 });
 
 
+function myguten_enqueue() {
+    wp_enqueue_script(
+        'gutenberg-script',
+        get_stylesheet_directory_uri() . '/public/scripts/gutenberg.js'
+    );
+}
+add_action( 'enqueue_block_editor_assets', 'myguten_enqueue' );
+
 /*
 Menus
 - enable WordPress Menus
  */
 if (function_exists('register_nav_menus')) {
-    register_nav_menus(['header' => __('Primary Nav'), 'footer' => __('Footer Nav')]);
+    register_nav_menus(['primary' => __('Primary Nav'), 'secondary' => __('Secondary Nav'), 'footer' => __('Footer Nav')]);
 }
 
 /*
@@ -96,16 +113,66 @@ add_filter('tiny_mce_before_init', function ($styles) {
 
     $formats = [
         [
-            'title'   => 'Button Primary',
+            'title'   => 'Button',
             'selector'  => 'a',
             'classes' => 'btn',
             'wrapper' => false,
         ],
         [
-            'title'   => 'Button Secondary',
+            'title'   => 'Button Fill',
             'selector'  => 'a',
-            'classes' => 'btn btn--secondary',
+            'classes' => 'btn fill',
             'wrapper' => false,
+        ],
+        [
+            'title' => 'Font Weights',
+            'items' => [
+                [
+                    'title' => 'Thin',
+                    'inline' => 'span',
+                    'classes' => 'font-thin',
+                ],
+                [
+                    'title' => 'Extra Light',
+                    'inline' => 'span',
+                    'classes' => 'font-extralight',
+                ],
+                [
+                    'title' => 'Light',
+                    'inline' => 'span',
+                    'classes' => 'font-light',
+                ],
+                [
+                    'title' => 'Normal',
+                    'inline' => 'span',
+                    'classes' => 'font-normal',
+                ],
+                [
+                    'title' => 'Medium',
+                    'inline' => 'span',
+                    'classes' => 'font-medium',
+                ],
+                [
+                    'title' => 'Semibold',
+                    'inline' => 'span',
+                    'classes' => 'font-semibold',
+                ],
+                [
+                    'title' => 'Bold',
+                    'inline' => 'span',
+                    'classes' => 'font-bold',
+                ],
+                [
+                    'title' => 'Extra Bold',
+                    'inline' => 'span',
+                    'classes' => 'font-extrabold',
+                ],
+                [
+                    'title' => 'Black',
+                    'inline' => 'span',
+                    'classes' => 'font-black',
+                ],
+            ],
         ],
     ];
 
@@ -146,8 +213,26 @@ function wdm_add_tinymce_plugin( $plugin_array ) {
     return $plugin_array;
 }
 
+function crs_get_tablepress_table_id( $post_id ) {
+    $tables = get_option( 'tablepress_tables' );
+    $tables = json_decode( $tables, true );
+    if ( empty( $tables['table_post'] ) ) {
+        return false;
+    }
+    $posts = array_flip( $tables['table_post'] );
+    return isset( $posts[$post_id] ) ? $posts[$post_id] : false;
+}
 
+function crs_get_offers( $key ) {
 
+    $offers_sections = get_field( 'offers_sections', 'options' );
 
-
+    if ( $offers_sections ) {
+        foreach ( $offers_sections as $offers_section ) {
+            if ( $offers_section['id'] === $key ) {
+                return $offers_section['offers'];
+            }
+        } 
+    }
+}
 

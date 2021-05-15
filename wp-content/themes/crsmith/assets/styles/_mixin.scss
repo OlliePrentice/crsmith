@@ -1,0 +1,37 @@
+$cell-depth: 10;
+$colors-list: bg-primary, bg-secondary, bg-tertiary;
+
+@mixin tr-x-bg($color) {
+    @for $i from 1 through $cell-depth {
+        .tr-#{$i}-#{$color} { 
+            tbody {
+                tr:nth-child(#{$i}) {
+                    @apply #{$color} text-white;
+                }
+            }
+         }
+    }
+}
+
+@mixin tr-x-td-x-bg($color) {
+    @for $i from 1 through $cell-depth {
+        table[class^='tr-#{$i}'], table[class*='tr-#{$i}'] {
+            @for $j from 1 through $cell-depth {
+                &.tr-#{$i}-td-#{$j}-#{$color} { 
+                    tbody {
+                        tr:nth-child(#{$i}) {
+                            td:nth-child(#{$j}) {
+                                @apply #{$color} text-white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@each $current-color in $colors-list {
+    @include tr-x-bg($current-color);
+    @include tr-x-td-x-bg($current-color);
+}

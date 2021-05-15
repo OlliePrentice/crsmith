@@ -1,0 +1,10 @@
+.menu-feature-pages {
+    display: none!important;
+    width: 72%;
+}
+
+.mega-inner {
+    > .menu-feature-pages {
+        display: flex!important;
+    }
+}

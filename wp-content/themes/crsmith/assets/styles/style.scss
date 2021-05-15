@@ -6,12 +6,32 @@
 @import "variables";
 @import "colours";
 @import "wp-core";
+@import "gutenberg";
+@import "mixin";
 @import "utilities";
 @import "theme";
 @import "typography";
 @import "form";
 
 @import "structures/header";
+@import "structures/footer";
+
 
 @import "components/burger";
 @import "components/mobile-navigation";
+@import "components/offers-expander";
+@import "components/card-carousel";
+@import "components/card-post";
+@import "components/newsletter";
+@import "components/search-form";
+@import "components/menu-feature-pages";
+@import "components/carousel-control";
+
+@import "blocks/f1-header-carousel";
+@import "blocks/a8-blurred-image-text";
+@import "blocks/a7-text-image-offset";
+@import "blocks/b9-colour-slider";
+@import "blocks/b2-image-slider";
+@import "blocks/a3-medium-image-text";
+@import "blocks/b10-collection-slider";
+@import "blocks/form";

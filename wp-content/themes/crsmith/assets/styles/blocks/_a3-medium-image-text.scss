@@ -1,0 +1,31 @@
+.medium-image-text {
+    &__image {
+        max-width: 645px;
+
+        @screen 2xl {
+            width: 125%;
+        }
+        
+
+        &--right {
+            @screen 2xl {
+                right: -25%;
+            }
+
+            @screen 3xl {
+                right: -20%;
+            }
+        }
+
+        &--left {
+            @screen 2xl {
+                left: -25%;
+            }
+
+            @screen 3xl {
+                left: -20%;
+            }
+        }
+
+    }
+}

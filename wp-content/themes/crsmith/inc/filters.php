@@ -133,17 +133,36 @@ function custom_class( $classes, $field, $form ) {
 
     if ( $field->size == 'small' ) {
         $classes .= ' field-small';
-    }
-
-    if ( $field->size == 'medium' ) {
+    } elseif ( $field->size == 'medium' ) {
         $classes .= ' field-medium';
+    } elseif ( $field->size == 'large' ) {
+        $classes .= ' field-large';
+    } elseif ( $field->size == 'fill' ) {
+        $classes .= ' field-fill';
+    } else {
+        $classes .= ' field-auto';
     }
 
-    if ( $field->size == 'large' ) {
-        $classes .= ' field-large';
+
+    if ( $field->type == 'fileupload' && !$field->multipleFiles ) {
+
+        $classes .= ' file-uploader';
     }
+
+    if ( $field->type == 'fileupload' && $field->multipleFiles ) {
+
+        $classes .= ' multi-file-uploader';
+    }
+
     return $classes;
 }
+
+add_filter( 'gform_field_size_choices', function( $choices ) {
+    $choices[] = [ 'value' => 'fill', 'text' => 'Fill' ];
+    $choices[] = [ 'value' => 'auto', 'text' => 'Auto' ];
+ 
+    return $choices;
+} );
 
 
 add_filter( 'replace_editor', 'enable_gutenberg_editor_for_blog_page', 10, 2 );

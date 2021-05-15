@@ -1,0 +1,1 @@
+<div class="bg-primary bg-secondary bg-tertiary bg-quaternary bg-gray-50 text-primary text-secondary text-tertiary text-quarternary"></div>

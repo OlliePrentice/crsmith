@@ -6,14 +6,139 @@
     }
 }
 
+.remove-list-style {
+    ul {
+        padding-left: 0;
+        list-style-type: none;
+    }
+}
+
+.remove-underlines *, .remove-link-style * {
+    @apply no-underline;
+}
+
 .img-full {
     img {
         width: 100%;
     }
 }
 
-.theme-dark {
-    h1,h2,h3,h4,h5,h6,p,li,span {
-        @apply text-white;
+.img-center {
+    img {
+        margin: 0 auto;
     }
 }
+
+.img-right {
+    img {
+        margin-left: auto;
+    }
+}
+
+.fit-image {
+    img {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.image-half-screen {
+    width: 50vw;
+    max-width: 960px;
+}
+
+.theme-dark, .bg-primary, .bg-tertiary {
+    &:not(.theme-light) {
+        * {
+            color: white;
+        }
+
+        option {
+            color: black;
+        }
+
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: rgba(255,255,255,0.3);
+            opacity: 1;
+        }
+        input::-moz-placeholder, textarea::-moz-placeholder { /* Firefox 19+ */
+            color: rgba(255,255,255,0.3);
+            opacity: 1;
+        }
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder { /* IE 10+ */
+            color: rgba(255,255,255,0.3);
+            opacity: 1;
+        }
+        input:-moz-placeholder, textarea:-moz-placeholder { /* Firefox 18- */
+            color: rgba(255,255,255,0.3);
+            opacity: 1;
+        }
+
+        div.swiper-pagination {
+        
+            .swiper-pagination-bullet {
+                background-color: white;
+        
+                &.swiper-pagination-bullet-active {
+                    background-color: transparent;
+                    border-color: white;
+                }
+            }
+        }
+    }
+}
+
+.expand-container {
+    @screen xl {
+       max-width: 75.75rem;
+    }
+
+    @media (min-width: $l-desktop) {
+        width: 72vw;
+        
+        @apply max-w-screen-2xl;
+    }
+}
+
+.standard-container {
+    @screen xl {
+        max-width: 75.75rem;
+    }
+}
+
+.border-t-faded {
+    &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+
+        background: linear-gradient(to right, white, $gray-300, white);
+    }
+}
+
+.border-b-faded {
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+
+        background: linear-gradient(to right, white, $gray-300, white);
+    }
+}
+
+.space-links {
+    .btn-wrap {
+        @apply xl:mx-20;
+    }
+}
+
+a {
+    &:hover {
+        .heading-link {
+            @apply text-secondary underline;
+        }
+    }
+}
+

@@ -1,0 +1,56 @@
+.header-carousel {
+
+    &--offers {
+        > div {
+            padding-bottom: 44px;
+        }
+    }
+        
+    .swiper-slide {
+        width: calc(100vw - (50vw - 50%));
+        max-width: 1710px;
+        height: auto;
+
+        &.swiper-slide-active {
+            .header-carousel__text {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0);;
+
+            }
+        }
+    }
+
+
+    &__text {
+        width: calc(50vw - (100vw - 100%));
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition: all 750ms;
+        transition-delay: 500ms;
+
+        @media (min-width: 1921px) {
+            width: 43.85%;
+        }
+    }
+
+    &__image {
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    // &__image {
+    //     max-width: 960px;
+    //     min-height: 700px;
+
+    //     > * {
+    //         min-height: inherit;
+    //     }
+    // }
+
+}

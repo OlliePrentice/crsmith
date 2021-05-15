@@ -332,7 +332,7 @@ function get_mixed_field($name = '') {
  */
 function get_inline_svg( $filename )
 {
-	$svg_dir  = get_template_directory() . '/assets/images/svgs/';
+	$svg_dir  = get_template_directory() . '/assets/images/';
 	$svg_path = wp_normalize_path( $svg_dir . $filename );
 
 	if ( file_exists( $svg_path ) )

@@ -1,0 +1,23 @@
+.blurred-image-text {
+
+    .blurred-image-text__content {
+        @media (min-width: $l-desktop) {
+            padding-top: 20vw;
+        }
+
+        @media (min-width: $xl-desktop) {
+            padding-top: 24rem;
+        }
+    }
+
+    // &__box {
+    //     @media (min-width: $l-desktop) {
+    //         min-height: 33vw;
+    //     }
+
+    //     @media (min-width: $xl-desktop) {
+    //         min-height: 736px;
+    //     }
+    // }
+
+}

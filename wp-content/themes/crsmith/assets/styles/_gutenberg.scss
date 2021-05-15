@@ -1,0 +1,43 @@
+.has-gray-50-background-color {
+    @apply bg-gray-50;
+}
+
+.has-gray-50-color {
+    @apply text-gray-50;
+}
+
+.has-primary-background-color {
+    @apply bg-primary;
+}
+
+.has-primary-color {
+    @apply text-primary;
+}
+
+.has-quaternary-background-color {
+    @apply bg-quaternary;
+}
+
+.has-quaternary-color {
+    @apply text-quaternary;
+}
+
+.has-secondary-background-color {
+    @apply bg-secondary;
+}
+
+.has-secondary-color {
+    @apply text-secondary;
+}
+
+.has-tertiary-background-color {
+    @apply bg-tertiary;
+}
+
+.has-tertiary-color {
+    @apply text-tertiary;
+}
+
+.wp-block-spacer {
+    position: relative;
+}

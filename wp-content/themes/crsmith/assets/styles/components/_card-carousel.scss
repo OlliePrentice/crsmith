@@ -1,0 +1,22 @@
+.card-carousel {
+    &__content {
+        min-height: 290px;
+    }
+}
+
+.swiper-slide-active {
+
+    .card-carousel__content {
+        @apply border-secondary;
+    }
+   
+    .card-carousel__text {
+        @apply pb-36;
+    }
+
+    .card-carousel__btn {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}

@@ -1,0 +1,17 @@
+.text-image-offset {
+
+    &__col {
+        &:nth-child(2) {
+            position: relative;
+            
+            @screen 2xl {
+                @apply left-14;   
+
+                > div {
+                    min-width: 600px;
+                }
+            }
+        }
+    }
+
+}
